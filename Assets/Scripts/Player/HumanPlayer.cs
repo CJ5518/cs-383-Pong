@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HumanPlayer : MonoBehaviour {
+public class HumanPlayer : Player {
 	void Start() {
 		
 	}

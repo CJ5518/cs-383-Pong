@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AIPlayer : MonoBehaviour {
+public class AIPlayer : Player {
 	void Start() {
 		
 	}
