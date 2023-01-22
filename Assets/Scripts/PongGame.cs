@@ -1,26 +1,38 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 //Basic pong game implementation
 public class PongGame : MonoBehaviour {
+	//Objects we keep track of
 	public Paddle leftPaddle;
 	public Paddle rightPaddle;
 	public Ball ball;
 
+	//Events we emit
+	public UnityEvent pongUpdate = new UnityEvent();
+	//Set in the editor
+	public UnityEvent pongInit;
 
-	//The left and right x coord edges of the map, left is negative, right is positive
-	//Set automatically
-	float extremeLeftXCoord = 0.0f;
-	float extremeRightXCoord = 0.0f;
+	//Settings
+	public PongConfig config;
+	public bool paused = false;
 
 	void Start() {
-		//Make sure the paddles start at the edge of the screen
-		float aspect = (float)Screen.width / (float)Screen.height;
-		extremeRightXCoord = Camera.main.orthographicSize * aspect;
-		extremeLeftXCoord = -extremeRightXCoord;
+		Application.targetFrameRate = 60;
+		config = new PongConfig();
 	}
 
 	// Update is called once per frame
-	void Update() {
+	void FixedUpdate() {
+		if (!paused)
+			pongUpdate.Invoke();
+	}
 
+	void Update() {
+		if (Input.GetKey(KeyCode.Escape))
+             Application.Quit();
+		if (Input.GetKey(KeyCode.R)) {
+			pongInit.Invoke();
+		}
 	}
 }
